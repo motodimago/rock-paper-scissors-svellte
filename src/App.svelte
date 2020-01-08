@@ -55,7 +55,7 @@
 
 <style>
 .buttons {
-  width: 300px;
+  width: 280px;
   display: flex;
   justify-content: space-between;
   align-items: center;
