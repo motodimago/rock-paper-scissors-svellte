@@ -50,7 +50,7 @@ export default class UgClient {
   }
 
   _setServiceId(): void {
-    fetch('http://api.ipify.org/').then((response) =>
+    fetch('https://api.ipify.org/').then((response) =>
       response.text().then((ip) => {
         this.serviceId = ip;
       })
