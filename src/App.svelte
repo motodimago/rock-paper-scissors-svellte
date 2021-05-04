@@ -1,96 +1,78 @@
-<script>
+<script lang="ts">
   import Button from './components/Button.svelte';
+  import type { BattleResultKind } from './models/Battle';
+  import Game from './models/Game';
+  import { ALL_HandKind } from './models/Hand';
+  import type { HandKind } from './models/Hand';
 
-  const Rock = 'Rock';
-  const Paper = 'Paper';
-  const Scissors = 'Scissors';
-  
-  const Win = 'Win';
-  const Draw = 'Draw';
-  const Lose = 'Lose';
+  const game = new Game();
+  let result: BattleResultKind;
+  let myHand: HandKind = "rock"
+  let enemyHand: HandKind = "rock"
 
-  let result = "";
-  let enemyHand = Rock;
-  let myHand = Rock;
-
-	function handleClick(hand) {
-    myHand = hand;
-    const rnd = Math.floor(Math.random() * 3)
-    enemyHand = [Rock, Paper, Scissors][rnd];
-    result = getResult(myHand, enemyHand);
-  }
-  
-  function getResult(myHand, enemyHand) {
-    if (myHand === enemyHand) {
-      return Draw;
-    }
-    if (myHand === Rock && enemyHand === Scissors) {
-      return Win;
-    }
-    if (myHand === Paper && enemyHand === Rock) {
-      return Win;
-    }
-    if (myHand === Scissors && enemyHand === Paper) {
-      return Win;
-    }
-    return Lose;
+  function handleClick(hand: HandKind):void {
+    myHand = hand
+    result = game.play(hand);
+    enemyHand = game.getEnemyHand()
   }
 </script>
 
 <main>
-  <div class="enemy"><img src="img/{enemyHand}.svg" alt="enemy"></div>
-  <div 
-    class="result" 
-    class:win="{result === Win}"
-    class:draw="{result === Draw}"
-    class:lose="{result === Lose}"
-  >{result}</div>
-  <div class="mine"><img src="img/{myHand}.svg" alt="mine"></div>
-  <div class="buttons">
-    <Button on:click={() => handleClick(Rock)} name={Rock} />
-    <Button on:click={() => handleClick(Paper)} name={Paper} />
-    <Button on:click={() => handleClick(Scissors)} name={Scissors} />
+    <div class="enemy"><img src="img/{enemyHand}.svg" alt="enemy"></div>
+    <div 
+      class="result" 
+      class:win="{result === "win"}"
+      class:draw="{result === "draw"}"
+      class:lose="{result === "lose"}"
+    >
+    {#if result}{result}{/if}
   </div>
+    <div class="mine"><img src="img/{myHand}.svg" alt="mine"></div>
+    <div class="buttons">
+      {#each ALL_HandKind as hand}
+        <Button on:click={() => handleClick(hand)} name={hand} />
+      {/each}
+    </div>
 </main>
 
 <style>
-.buttons {
-  width: 280px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 auto;
-}
-
-.result {
-  font-weight: 900;
-  font-size: 50px;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.win {
-  color: #9DCC78;
-}
-.lose {
-  color: #CC8E78;
-}
-.draw {
-  color: #999999
-}
-
-.enemy,
-.mine {
-  width: 160px;
-  height: 160px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.enemy {
-  transform:rotate(180deg);
-}
+  .buttons {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 auto;
+      width: 280px;
+    }
+    
+    .result {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 80px;
+      font-weight: 900;
+      font-size: 50px;
+    }
+    .win {
+      color: #9DCC78;
+    }
+    .lose {
+      color: #CC8E78;
+    }
+    .draw {
+      color: #999999
+    }
+    
+    .enemy,
+    .mine {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      width: 160px;
+      height: 160px;
+    }
+    
+    .enemy {
+      transform:rotate(180deg);
+    }
 </style>
