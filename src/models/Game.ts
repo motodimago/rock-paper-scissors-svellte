@@ -1,6 +1,6 @@
-import battle, { BattleResultKind } from "./Battle";
-import { ALL_HandKind, HandKind } from "./Hand";
-import Player from "./Player";
+import battle, { BattleResultKind } from './Battle';
+import { ALL_HandKind, HandKind } from './Hand';
+import Player from './Player';
 
 export default class Game {
   private player: Player;

@@ -1,4 +1,4 @@
-import Hand, { HandKind, ALL_HandKind } from "./Hand";
+import Hand, { HandKind, ALL_HandKind } from './Hand';
 
 export default class Enemy {
   private hand: Hand;
