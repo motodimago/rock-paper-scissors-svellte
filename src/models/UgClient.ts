@@ -53,6 +53,7 @@ export default class UgClient {
     fetch('https://api.ipify.org/').then((response) =>
       response.text().then((ip) => {
         this.serviceId = ip;
+        this.pushPv();
       })
     );
   }
