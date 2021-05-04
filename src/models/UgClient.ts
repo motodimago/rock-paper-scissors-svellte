@@ -39,7 +39,7 @@ export default class UgClient {
   }
 
   _setUgScript(): void {
-    const ug = (window as any).usergram || [];
+    const ug = ((window as any).usergram = (window as any).usergram || []);
     if (!ug.l) {
       ug.s = new Date().getTime();
       ug.l = true;
