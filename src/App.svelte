@@ -20,7 +20,7 @@
     enemyHand = game.getEnemyHand();
     if (isFirstPlay) {
       ug.pushCv('play');
-      const dataLayer = (window as any).usergram || [];
+      const dataLayer = (window as any).dataLayer || [];
       dataLayer.push({ event: 'select_hand' });
       isFirstPlay = false;
     }
