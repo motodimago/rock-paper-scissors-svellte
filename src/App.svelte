@@ -16,12 +16,15 @@
   function handleClick(hand: HandKind): void {
     myHand = hand;
     result = game.play(hand);
+    console.log('push event');
+    const dataLayer = (window as any).dataLayer || [];
+    dataLayer.push({ event: 'select_hand' });
+    console.log(dataLayer);
+
     ug.pushEvent(result);
     enemyHand = game.getEnemyHand();
     if (isFirstPlay) {
       ug.pushCv('play');
-      const dataLayer = (window as any).dataLayer || [];
-      dataLayer.push({ event: 'select_hand' });
       isFirstPlay = false;
     }
   }
