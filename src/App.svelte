@@ -17,6 +17,13 @@
     myHand = hand;
     result = game.play(hand);
     ug.pushEvent(result);
+
+    const dataLayer = (window as any).dataLayer || [];
+    dataLayer.push({
+      event: 'virtualPageview',
+      pageUrl: 'https://rps-svellte.netlify.app/' + hand,
+      pageTitle: 'Select ' + hand,
+    });
     enemyHand = game.getEnemyHand();
     if (isFirstPlay) {
       ug.pushCv('play');
