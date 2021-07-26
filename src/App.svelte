@@ -4,9 +4,7 @@
   import Game from './models/Game';
   import { ALL_HandKind } from './models/Hand';
   import type { HandKind } from './models/Hand';
-  import UgClient from './models/UgClient';
 
-  const ug = new UgClient();
   const game = new Game();
   let isFirstPlay = true;
   let result: BattleResultKind;
@@ -16,7 +14,6 @@
   function handleClick(hand: HandKind): void {
     myHand = hand;
     result = game.play(hand);
-    ug.pushEvent(result);
 
     const dataLayer = (window as any).dataLayer || [];
     dataLayer.push({
@@ -26,7 +23,6 @@
     });
     enemyHand = game.getEnemyHand();
     if (isFirstPlay) {
-      ug.pushCv('play');
       isFirstPlay = false;
     }
   }
